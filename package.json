@@ -3,6 +3,9 @@
 	"version": "0.0.1",
 	"description": "Design token builder",
 	"main": "index.js",
+	"bin": {
+		"dtbuilder": "index.js"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -26,6 +29,7 @@
 		"prettier": "^1.12.1"
 	},
 	"dependencies": {
-		"commander": "^2.15.1"
+		"commander": "^2.15.1",
+		"flat": "^4.0.0"
 	}
 }
