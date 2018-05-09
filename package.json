@@ -14,8 +14,8 @@
 		"url": "git+https://github.com/dan1elhughes/dtbuilder.git"
 	},
 	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"author": "Dan Hughes",
+	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/dan1elhughes/dtbuilder/issues"
 	},
