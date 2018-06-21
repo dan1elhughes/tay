@@ -8,11 +8,9 @@ const util = require('util');
 
 const unlink = util.promisify(fs.unlink);
 const writeFile = util.promisify(fs.writeFile);
+const mkdir = util.promisify(fs.mkdir);
 
-const collect = (val, memo) => {
-	memo.push(val);
-	return memo;
-};
+const collect = (val, memo) => [...memo, val];
 
 const cwd = process.cwd();
 
@@ -53,25 +51,26 @@ try {
 
 	const tasks = [];
 
-	output.forEach(outputDir => {
+	output.forEach(output => {
 		format.forEach(format => {
 			tasks.push(async () => {
 				const formatter = require(`./formatters/${format}`);
 				const { extension, content } = formatter(tokens);
 
-				const outputFileName = path.join(
-					cwd,
-					outputDir,
-					`${filename}${extension}`
-				);
+				const outputDir = path.join(cwd, output);
+
+				const outputFile = path.join(outputDir, `${filename}${extension}`);
 
 				try {
-					await unlink(outputFileName);
+					// Attempt to make the output directory; fails if it already exists.
+					await mkdir(outputDir);
+					// Attempt to delete the existing output file; fails if it doesn't exist.
+					await unlink(outputFile);
 				} catch (e) {
-					// File didn't exist, so ignore error.
+					// Failure of the above steps doesn't matter.
 				}
 
-				return writeFile(outputFileName, content);
+				return writeFile(outputFile, content);
 			});
 		});
 	});
