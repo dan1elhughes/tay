@@ -1,10 +1,10 @@
 {
-	"name": "dtbuilder",
+	"name": "tay",
 	"version": "0.0.1",
 	"description": "Design token builder",
 	"main": "index.js",
 	"bin": {
-		"dtbuilder": "index.js"
+		"tay": "index.js"
 	},
 	"scripts": {
 		"test": "jest",
@@ -12,15 +12,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/dan1elhughes/dtbuilder.git"
+		"url": "git+https://github.com/dan1elhughes/tay.git"
 	},
 	"keywords": [],
 	"author": "Dan Hughes",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/dan1elhughes/dtbuilder/issues"
+		"url": "https://github.com/dan1elhughes/tay/issues"
 	},
-	"homepage": "https://github.com/dan1elhughes/dtbuilder#readme",
+	"homepage": "https://github.com/dan1elhughes/tay#readme",
 	"devDependencies": {
 		"eslint": "^4.19.1",
 		"eslint-config-prettier": "^2.9.0",
@@ -35,6 +35,9 @@
 		"flat": "^4.0.0"
 	},
 	"lint-staged": {
-		"*.js": ["eslint", "git add"]
+		"*.js": [
+			"eslint",
+			"git add"
+		]
 	}
 }
