@@ -7,7 +7,7 @@ module.exports = tokens => {
 	const after = '\n}';
 
 	const body = Object.entries(flattened)
-		.map(([key, value]) => `\t--${key}: '${value}';`)
+		.map(([key, value]) => `\t--${key}: ${value};`)
 		.join('\n');
 
 	const content = `${before}${body}${after}`;
