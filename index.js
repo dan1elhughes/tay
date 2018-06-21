@@ -14,7 +14,7 @@ const collect = (val, memo) => [...memo, val];
 
 const cwd = process.cwd();
 
-const supportedOutputFormats = ['json', 'css', 'scss'];
+const supportedOutputFormats = ['json', 'css', 'scss', 'module'];
 
 program
 	.version(require('./package.json').version, '-v, --version')
