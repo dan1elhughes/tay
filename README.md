@@ -14,7 +14,7 @@ Add to npm `package.json`:
 
 ```
 "scripts": {
-	"tay": "tay --input tokens.yaml --output public/styles --format css"
+	"tay": "tay --input tokens.yaml --output public/styles/tokens.css"
 }
 ```
 
@@ -29,14 +29,22 @@ Then `npm run tay`. Additionally, if you use `npm start`/`npm build`:
 
 `tay` will then run when you start or build the project.
 
+## Available formatters
+
+Tokens can be output in the following formats:
+
+- CSS custom properties
+- Sass variables
+- JS exports
+- JSON
+
 ## CLI options
 
 ```
--v, --version                   output the version number
--i, --input <inputFile>         Input YAML file
--o, --output <outputDirectory>  Output directory (can specify multiple)
--f, --format <format>           Output formats, comma separated (can specify multiple)
--h, --help                      output usage information
+-v, --version              output the version number
+-i, --input <inputFile>    Input YAML file
+-o, --output <outputFile>  Output file
+-h, --help                 output usage information
 ```
 
 ## Running the tests

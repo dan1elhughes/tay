@@ -1,4 +1,4 @@
-const format = require('../../formatters/module');
+const format = require('../../formatters/formatter-js');
 const tokens = require('../tokens.json');
 
 const expected = `
@@ -14,7 +14,7 @@ export const radiusMedium = '10px';
 export const radiusSmall = '5px';
 `.trim();
 
-describe('module', () => {
+describe('js', () => {
 	const input = tokens;
 	const { content, extension } = format(input);
 

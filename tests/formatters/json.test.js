@@ -1,4 +1,4 @@
-const format = require('../../formatters/json');
+const format = require('../../formatters/formatter-json');
 const tokens = require('../tokens.json');
 
 const expected = `

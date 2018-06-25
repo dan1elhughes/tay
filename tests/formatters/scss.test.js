@@ -1,4 +1,4 @@
-const format = require('../../formatters/scss');
+const format = require('../../formatters/formatter-scss');
 const tokens = require('../tokens.json');
 
 const expected = `
@@ -14,7 +14,7 @@ $radius-medium: '10px';
 $radius-small: '5px';
 `.trim();
 
-describe('css', () => {
+describe('scss', () => {
 	const input = tokens;
 	const { content, extension } = format(input);
 
