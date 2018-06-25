@@ -36,6 +36,7 @@ Tokens can be output in the following formats:
 - CSS custom properties
 - Sass variables
 - JS exports
+- Flat JSON
 - JSON
 
 ## CLI options

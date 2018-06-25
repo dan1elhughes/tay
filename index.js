@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 const program = require('commander');
 const fs = require('fs');
@@ -19,7 +20,10 @@ const collect = (val, memo) => [...memo, val];
 
 const cwd = process.cwd();
 
-const supportedOutputFormats = ['json', 'css', 'scss', 'js'];
+const supportedOutputFormats = ['css', 'scss', 'js', 'flat.json', 'json'];
+
+const getMatchingFormat = filename =>
+	supportedOutputFormats.find(format => filename.endsWith(format));
 
 program
 	.version(require('./package.json').version, '-v, --version')
@@ -28,18 +32,7 @@ program
 	.parse(process.argv);
 
 if (!program.input) throw new Error('Input file not specified.');
-if (!program.output.length) throw new Error('No output directories specified.');
-
-program.output.forEach(file => {
-	const extension = file.split('.').pop();
-	if (!supportedOutputFormats.includes(extension)) {
-		throw new Error(
-			`"${extension}" is not a supported file extension (${supportedOutputFormats.join(
-				', '
-			)})`
-		);
-	}
-});
+if (!program.output.length) throw new Error('No output files specified.');
 
 const { input, output } = program;
 
@@ -50,10 +43,17 @@ try {
 	const tasks = [];
 
 	output.forEach(output => {
-		const parts = output.split('.');
-		const extension = parts[parts.length - 1];
+		const format = getMatchingFormat(output);
+		if (!format) {
+			return console.error(
+				`"${output}" is not a supported file extension (${supportedOutputFormats.join(
+					', '
+				)})`
+			);
+		}
+
 		tasks.push(async () => {
-			const formatter = require(`./formatters/formatter-${extension}`);
+			const formatter = require(`./formatters/formatter-${format}.js`);
 			const { content } = formatter(tokens);
 
 			const outputFile = path.join(cwd, output);
@@ -73,7 +73,7 @@ try {
 		});
 	});
 
-	Promise.all(tasks.map(t => t())).catch(console.error.bind(console)); // eslint-disable-line
+	Promise.all(tasks.map(t => t())).catch(console.error.bind(console));
 } catch (e) {
-	console.error(e); // eslint-disable-line
+	console.error(e);
 }
