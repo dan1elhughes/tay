@@ -13,6 +13,7 @@ const expected = `
 	--radius-large: 15px;
 	--radius-medium: 10px;
 	--radius-small: 5px;
+	--font: 'Open Sans', Arial, sans-serif;
 }
 `.trim();
 

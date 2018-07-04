@@ -12,7 +12,8 @@ const expected = `
 	"spacing-small": "10px",
 	"radius-large": "15px",
 	"radius-medium": "10px",
-	"radius-small": "5px"
+	"radius-small": "5px",
+	"font": "'Open Sans', Arial, sans-serif"
 }`.trim();
 
 describe('flat.json', () => {

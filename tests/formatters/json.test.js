@@ -22,7 +22,8 @@ const expected = `
 		"large": "15px",
 		"medium": "10px",
 		"small": "5px"
-	}
+	},
+	"font": "'Open Sans', Arial, sans-serif"
 }
 `.trim();
 

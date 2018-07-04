@@ -12,7 +12,7 @@ const toCamelCase = str =>
 module.exports = tokens => {
 	const flattened = flatten(tokens, { delimiter: '-' });
 	const content = Object.entries(flattened)
-		.map(([key, value]) => `export const ${toCamelCase(key)} = '${value}';`)
+		.map(([key, value]) => `export const ${toCamelCase(key)} = "${value}";`)
 		.join('\n');
 
 	return { content, extension: '.js' };
