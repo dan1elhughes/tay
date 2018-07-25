@@ -1,6 +1,6 @@
 {
 	"name": "tay",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "Design token builder",
 	"main": "index.js",
 	"bin": {
