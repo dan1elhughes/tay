@@ -6,5 +6,5 @@ module.exports = tokens => {
 		.map(([key, value]) => `$${key}: ${value};`)
 		.join('\n');
 
-	return { content, extension: '.scss' };
+	return content;
 };

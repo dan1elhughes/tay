@@ -12,5 +12,5 @@ module.exports = tokens => {
 
 	const content = `${before}${body}${after}`;
 
-	return { content, extension: '.css' };
+	return content;
 };

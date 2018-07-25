@@ -1,4 +1,1 @@
-module.exports = tokens => ({
-	extension: '.json',
-	content: JSON.stringify(tokens, null, '\t'),
-});
+module.exports = tokens => JSON.stringify(tokens, null, '\t');

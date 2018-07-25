@@ -19,11 +19,7 @@ const expected = `
 
 describe('css', () => {
 	const input = tokens;
-	const { content, extension } = format(input);
-
-	test('has the right extension', () => {
-		expect(extension).toEqual('.css');
-	});
+	const content = format(input);
 
 	test('has the right content', () => {
 		expect(content).toEqual(expected);

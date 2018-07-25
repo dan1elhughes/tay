@@ -18,11 +18,7 @@ const expected = `
 
 describe('flat.json', () => {
 	const input = tokens;
-	const { content, extension } = format(input);
-
-	test('has the right extension', () => {
-		expect(extension).toEqual('.json');
-	});
+	const content = format(input);
 
 	test('has the right content', () => {
 		expect(content).toEqual(expected);

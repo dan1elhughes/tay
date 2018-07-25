@@ -54,7 +54,7 @@ try {
 
 		tasks.push(async () => {
 			const formatter = require(`./formatters/formatter-${format}.js`);
-			const { content } = formatter(tokens);
+			const content = formatter(tokens);
 
 			const outputFile = path.join(cwd, output);
 

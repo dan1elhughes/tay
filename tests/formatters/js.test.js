@@ -17,11 +17,7 @@ export const font = "'Open Sans', Arial, sans-serif";
 
 describe('js', () => {
 	const input = tokens;
-	const { content, extension } = format(input);
-
-	test('has the right extension', () => {
-		expect(extension).toEqual('.js');
-	});
+	const content = format(input);
 
 	test('has the right content', () => {
 		expect(content).toEqual(expected);
