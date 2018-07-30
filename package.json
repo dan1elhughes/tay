@@ -2,14 +2,16 @@
 	"name": "tay",
 	"version": "2.2.0",
 	"description": "Design token builder",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"bin": {
-		"tay": "index.js"
+		"tay": "dist/index.js"
 	},
 	"scripts": {
 		"test": "jest && npm run lint",
 		"precommit": "lint-staged",
-		"lint": "eslint ."
+		"lint": "eslint --ignore-path .gitignore .",
+		"build": "babel src --presets babel-preset-env --out-dir dist",
+		"prepublish": "npm run build"
 	},
 	"repository": {
 		"type": "git",
@@ -23,6 +25,8 @@
 	},
 	"homepage": "https://github.com/dan1elhughes/tay#readme",
 	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
 		"eslint": "^5.2.0",
 		"eslint-config-prettier": "^2.9.0",
 		"eslint-plugin-prettier": "^2.6.2",

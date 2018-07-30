@@ -27,7 +27,7 @@ const getMatchingFormat = filename =>
 	supportedOutputFormats.find(format => filename.endsWith(format));
 
 program
-	.version(require('./package.json').version, '-v, --version')
+	.version(require('../package.json').version, '-v, --version')
 	.option('-i, --input <inputFile>', 'Input YAML file')
 	.option('-o, --output <outputFile>', 'Output file', collect, [])
 	.option('-w, --watch', 'Watch input for changes')
