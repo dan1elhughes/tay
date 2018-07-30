@@ -4,7 +4,7 @@ Compiles YAML design tokens into usable project variables.
 
 ## Workflow
 
-![](./assets/Design workflow.png)
+![Workflow](/assets/Design%20workflow.png)
 
 ## Installation
 
@@ -37,11 +37,11 @@ Then `npm run tay`. Additionally, if you use `npm start`/`npm build`:
 
 Tokens can be output in the following formats:
 
-* CSS custom properties
-* Sass variables
-* JS exports
-* Flat JSON
-* JSON
+- CSS custom properties
+- Sass variables
+- JS exports
+- Flat JSON
+- JSON
 
 ## CLI options
 
@@ -58,7 +58,6 @@ Tokens can be output in the following formats:
 `/src/tokens.yaml`
 
 ```yaml
----
 spacing:
   large: 2rem
   medium: 1rem
