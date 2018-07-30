@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - { image: 'circleci/node:10' }
+    steps:
+      # Checkout the build from Git.
+      - checkout
+
+      # Restore any cached node_modules from the last
+      # build, if package.json has the same checksum.
+      - { restore_cache: { key: 'dependency-cache-{{ checksum "package.json" }}' } }
+
+      # Install dependencies.
+      - { run: 'npm install --silent' }
+
+      # Save the content of node_modules to cache for
+      # the next build.
+      - { save_cache: { key: 'dependency-cache-{{ checksum "package.json" }}', paths: [node_modules] } }
+
+      # Run the tests configured in package.json.
+      - run:
+          command: npm test -- --ci --reporters=jest-junit --runInBand
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+
+      # Run linting.
+      - run:
+          command: npm run lint -- --format junit -o reports/junit/js-lint-results.xml
+
+      # Store test and lint results
+      - { store_test_results: { path: reports/junit } }
+      - { store_artifacts: { path: reports/junit } }
