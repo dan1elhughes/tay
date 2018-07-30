@@ -2,6 +2,10 @@
 
 Compiles YAML design tokens into usable project variables.
 
+## Workflow
+
+![](./assets/Design workflow.png)
+
 ## Installation
 
 ```
