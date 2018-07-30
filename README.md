@@ -53,6 +53,52 @@ Tokens can be output in the following formats:
 -h, --help                 output usage information
 ```
 
+## Example
+
+`/src/tokens.yaml`
+
+```yaml
+---
+spacing:
+  large: 2rem
+  medium: 1rem
+  small: 0.5rem
+radius:
+  large: 0.5rem
+  medium: 0.25rem
+  small: 0.125rem
+```
+
+Run:
+
+```shell
+$ tay -i /src/tokens.yaml -o /public/tokens.css -o /src/tokens/tokens.js
+```
+
+`/public/tokens.css`
+
+```css
+:root {
+	--spacing-large: 2rem;
+	--spacing-medium: 1rem;
+	--spacing-small: 0.5rem;
+	--radius-large: 0.5rem;
+	--radius-medium: 0.25rem;
+	--radius-small: 0.125rem;
+}
+```
+
+`/src/tokens/tokens.js`
+
+```js
+export const spacingLarge = '2rem';
+export const spacingMedium = '1rem';
+export const spacingSmall = '0.5rem';
+export const radiusLarge = '0.5rem';
+export const radiusMedium = '0.25rem';
+export const radiusSmall = '0.125rem';
+```
+
 ## Running the tests
 
 ### Unit
