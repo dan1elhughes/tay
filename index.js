@@ -7,6 +7,7 @@ const yaml = require('js-yaml');
 const path = require('path');
 const util = require('util');
 const mkdirp = require('mkdirp');
+const chokidar = require('chokidar');
 
 const unlink = util.promisify(fs.unlink);
 const writeFile = util.promisify(fs.writeFile);
@@ -29,51 +30,64 @@ program
 	.version(require('./package.json').version, '-v, --version')
 	.option('-i, --input <inputFile>', 'Input YAML file')
 	.option('-o, --output <outputFile>', 'Output file', collect, [])
+	.option('-w, --watch', 'Watch input for changes')
 	.parse(process.argv);
 
 if (!program.input) throw new Error('Input file not specified.');
 if (!program.output.length) throw new Error('No output files specified.');
 
-const { input, output } = program;
+const { input, output, watch } = program;
 
-try {
-	const content = fs.readFileSync(path.join(cwd, input), 'utf-8');
-	const tokens = yaml.safeLoad(content);
+const run = async input => {
+	try {
+		const content = fs.readFileSync(path.join(cwd, input), 'utf-8');
+		const tokens = yaml.safeLoad(content);
 
-	const tasks = [];
+		const tasks = [];
 
-	output.forEach(output => {
-		const format = getMatchingFormat(output);
-		if (!format) {
-			return console.error(
-				`"${output}" is not a supported file extension (${supportedOutputFormats.join(
-					', '
-				)})`
-			);
-		}
-
-		tasks.push(async () => {
-			const formatter = require(`./formatters/formatter-${format}.js`);
-			const content = formatter(tokens);
-
-			const outputFile = path.join(cwd, output);
-
-			const outputDir = path.join(output, '..');
-
-			try {
-				await mkdir(outputDir);
-
-				// Attempt to delete the existing output file; fails if it doesn't exist.
-				await unlink(outputFile);
-			} catch (e) {
-				// Failure of the above steps doesn't matter.
+		output.forEach(output => {
+			const format = getMatchingFormat(output);
+			if (!format) {
+				return console.error(
+					`"${output}" is not a supported file extension (${supportedOutputFormats.join(
+						', '
+					)})`
+				);
 			}
 
-			return writeFile(outputFile, content);
-		});
-	});
+			tasks.push(async () => {
+				const formatter = require(`./formatters/formatter-${format}.js`);
+				const content = formatter(tokens);
 
-	Promise.all(tasks.map(t => t())).catch(console.error.bind(console));
-} catch (e) {
-	console.error(e);
+				const outputFile = path.join(cwd, output);
+
+				const outputDir = path.join(output, '..');
+
+				try {
+					await mkdir(outputDir);
+
+					// Attempt to delete the existing output file; fails if it doesn't exist.
+					await unlink(outputFile);
+				} catch (e) {
+					// Failure of the above steps doesn't matter.
+				}
+
+				return writeFile(outputFile, content).then(() =>
+					console.log(`Wrote ${Buffer.byteLength(content)}B to ${outputFile}`)
+				);
+			});
+		});
+
+		Promise.all(tasks.map(t => t())).catch(console.error.bind(console));
+	} catch (e) {
+		console.error(e);
+	}
+};
+
+run(input);
+
+if (watch) {
+	chokidar.watch(input).on('change', path => {
+		run(path);
+	});
 }

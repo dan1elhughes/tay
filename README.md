@@ -33,11 +33,11 @@ Then `npm run tay`. Additionally, if you use `npm start`/`npm build`:
 
 Tokens can be output in the following formats:
 
-- CSS custom properties
-- Sass variables
-- JS exports
-- Flat JSON
-- JSON
+* CSS custom properties
+* Sass variables
+* JS exports
+* Flat JSON
+* JSON
 
 ## CLI options
 
@@ -45,6 +45,7 @@ Tokens can be output in the following formats:
 -v, --version              output the version number
 -i, --input <inputFile>    Input YAML file
 -o, --output <outputFile>  Output file
+-w, --watch                Watch input for changes
 -h, --help                 output usage information
 ```
 
