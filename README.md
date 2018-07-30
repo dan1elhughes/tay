@@ -2,6 +2,8 @@
 
 Compiles YAML design tokens into usable project variables.
 
+[![CircleCI](https://circleci.com/gh/dan1elhughes/tay.svg?style=svg)](https://circleci.com/gh/dan1elhughes/tay)
+
 ## Workflow
 
 ![Workflow](/assets/Design%20workflow.png)
