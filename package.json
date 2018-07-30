@@ -39,6 +39,9 @@
 		"mkdirp": "^0.5.1"
 	},
 	"lint-staged": {
-		"*.js": ["eslint", "git add"]
+		"*.js": [
+			"eslint",
+			"git add"
+		]
 	}
 }
