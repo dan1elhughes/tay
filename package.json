@@ -10,7 +10,7 @@
 		"test": "jest && npm run lint",
 		"precommit": "lint-staged",
 		"lint": "eslint --ignore-path .gitignore .",
-		"build": "babel src --presets babel-preset-env --out-dir dist",
+		"build": "babel src --out-dir dist",
 		"prepublish": "npm run build"
 	},
 	"repository": {
@@ -26,6 +26,7 @@
 	"homepage": "https://github.com/dan1elhughes/tay#readme",
 	"devDependencies": {
 		"babel-cli": "^6.26.0",
+		"babel-plugin-transform-runtime": "^6.23.0",
 		"babel-preset-env": "^1.7.0",
 		"eslint": "^5.2.0",
 		"eslint-config-prettier": "^2.9.0",
@@ -36,6 +37,7 @@
 		"prettier": "^1.14.0"
 	},
 	"dependencies": {
+		"babel-runtime": "^6.26.0",
 		"chokidar": "^2.0.4",
 		"commander": "^2.16.0",
 		"flat": "^4.1.0",
