@@ -22,12 +22,11 @@ jobs:
       - run:
           command: npm test -- --ci --reporters=jest-junit --runInBand
           environment:
-            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+            JEST_JUNIT_OUTPUT: test-results/jest/results.xml
 
       # Run linting.
       - run:
-          command: npm run lint -- --format junit -o reports/junit/js-lint-results.xml
+          command: npm run lint -- --format junit -o test-results/eslint/results.xml
 
       # Store test and lint results
-      - { store_test_results: { path: reports/junit } }
-      - { store_artifacts: { path: reports/junit } }
+      - { store_test_results: { path: test-results } }
