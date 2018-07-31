@@ -3,6 +3,7 @@
 Compiles YAML design tokens into usable project variables.
 
 [![CircleCI](https://circleci.com/gh/dan1elhughes/tay.svg?style=svg)](https://circleci.com/gh/dan1elhughes/tay)
+[![Coverage Status](https://coveralls.io/repos/github/dan1elhughes/tay/badge.svg?branch=master)](https://coveralls.io/github/dan1elhughes/tay?branch=master)
 
 ## Workflow
 

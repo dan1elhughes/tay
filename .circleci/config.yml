@@ -20,7 +20,7 @@ jobs:
 
       # Run the tests configured in package.json.
       - run:
-          command: npm test -- --ci --reporters=jest-junit --runInBand
+          command: npm test -- --ci --reporters=jest-junit --runInBand --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
           environment:
             JEST_JUNIT_OUTPUT: test-results/jest/results.xml
 
