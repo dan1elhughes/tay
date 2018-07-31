@@ -1,8 +1,14 @@
 const { collect } = require('../../src/cli/utils');
 
 describe('collect', () => {
-	test('collects values into array', () => {
-		let arr = ['a'];
+	test('works without a memo being passed', () => {
+		const arr = collect('a');
+
+		expect(arr).toEqual(['a']);
+	});
+
+	test('adds entries into memo', () => {
+		let arr = collect('a');
 		arr = collect('b', arr);
 		arr = collect('c', arr);
 
