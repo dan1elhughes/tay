@@ -1,6 +1,6 @@
 {
 	"parserOptions": {
-		"ecmaVersion": 2017,
+		"ecmaVersion": 2018,
 		"sourceType": "module"
 	},
 	"env": {
@@ -12,6 +12,7 @@
 	"extends": ["eslint:recommended", "prettier"],
 	"rules": {
 		"prettier/prettier": "error",
-		"linebreak-style": ["error", "unix"]
+		"linebreak-style": ["error", "unix"],
+		"no-unused-vars": ["error", { "ignoreRestSiblings": true }]
 	}
 }
