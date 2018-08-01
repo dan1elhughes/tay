@@ -60,5 +60,38 @@ describe('app', () => {
 		expect(exists).toBe(true);
 	});
 
-	test('writes multiple files successfully', async () => {});
+	test('writes multiple files successfully', async () => {
+		const settings = {
+			...defaultSettings,
+			output: ['.test-data/output/tokens.css', '.test-data/output/tokens.scss'],
+		};
+
+		await app(settings);
+
+		const wroteFirstFile = await fs.exists(settings.output[0]);
+		expect(wroteFirstFile).toBe(true);
+
+		const wroteSecondFile = await fs.exists(settings.output[1]);
+		expect(wroteSecondFile).toBe(true);
+	});
+
+	test('gives back the correct messages', async () => {
+		const singleFileMessages = await app({
+			...defaultSettings,
+			output: ['.test-data/output/tokens.css'],
+		});
+
+		expect(singleFileMessages).toBe(
+			'Wrote 123B to .test-data/output/tokens.css'
+		);
+
+		const multipleFileMessages = await app({
+			...defaultSettings,
+			output: ['.test-data/output/tokens.css', '.test-data/output/tokens.json'],
+		});
+
+		expect(multipleFileMessages).toBe(
+			'Wrote 123B to .test-data/output/tokens.css\nWrote 120B to .test-data/output/tokens.json'
+		);
+	});
 });
