@@ -76,22 +76,30 @@ describe('app', () => {
 	});
 
 	test('gives back the correct messages', async () => {
+		const outputs = [
+			'.test-data/output/tokens.css',
+			'.test-data/output/tokens.json',
+			'.test-data/output/tokens.scss',
+		];
+
+		expect.assertions(outputs.length + 1);
+
 		const singleFileMessages = await app({
 			...defaultSettings,
-			output: ['.test-data/output/tokens.css'],
+			output: [outputs[0]],
 		});
-
-		expect(singleFileMessages).toBe(
-			'Wrote 123B to .test-data/output/tokens.css'
-		);
 
 		const multipleFileMessages = await app({
 			...defaultSettings,
-			output: ['.test-data/output/tokens.css', '.test-data/output/tokens.json'],
+			output: outputs,
 		});
 
-		expect(multipleFileMessages).toBe(
-			'Wrote 123B to .test-data/output/tokens.css\nWrote 120B to .test-data/output/tokens.json'
+		expect(singleFileMessages).toMatch(
+			new RegExp(`Wrote \\d+B to ${outputs[0]}`)
 		);
+
+		multipleFileMessages.split('\n').forEach((msg, i) => {
+			expect(msg).toMatch(new RegExp(`Wrote \\d+B to ${outputs[i]}`));
+		});
 	});
 });
