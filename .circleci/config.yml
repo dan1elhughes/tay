@@ -68,3 +68,4 @@ workflows:
       - "node:10"
       - "node:9"
       - "node:8"
+      - "node:7"

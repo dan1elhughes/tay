@@ -17,6 +17,8 @@ describe('app', () => {
 		cwd: '.',
 	};
 
+	const settingsWith = settings => Object.assign({}, defaultSettings, settings);
+
 	beforeEach(() => fs.outputFile('./.test-data/tokens.yaml', yaml));
 	afterEach(() => fs.remove('./.test-data'));
 
@@ -25,27 +27,26 @@ describe('app', () => {
 	});
 
 	test('throws with missing input', async () => {
-		const { input, ...settings } = defaultSettings;
+		const settings = settingsWith({ input: undefined });
 		await expect(app(settings)).rejects.toThrow('Input file not specified.');
 	});
 
 	test('throws with missing output', async () => {
-		const { output, ...settings } = defaultSettings;
+		const settings = settingsWith({ output: undefined });
 		await expect(app(settings)).rejects.toThrow('Output files not specified.');
 	});
 
 	test('throws with missing cwd', async () => {
-		const { cwd, ...settings } = defaultSettings;
+		const settings = settingsWith({ cwd: undefined });
 		await expect(app(settings)).rejects.toThrow(
 			'Unable to locate current working directory.'
 		);
 	});
 
 	test('throws with invalid format', async () => {
-		const settings = {
-			...defaultSettings,
+		const settings = settingsWith({
 			output: ['.test-data/output/tokens.fail'],
-		};
+		});
 
 		await expect(app(settings)).rejects.toThrow(
 			'".test-data/output/tokens.fail" not a supported file extension.'
@@ -61,10 +62,9 @@ describe('app', () => {
 	});
 
 	test('writes multiple files successfully', async () => {
-		const settings = {
-			...defaultSettings,
+		const settings = settingsWith({
 			output: ['.test-data/output/tokens.css', '.test-data/output/tokens.scss'],
-		};
+		});
 
 		await app(settings);
 
@@ -84,15 +84,17 @@ describe('app', () => {
 
 		expect.assertions(outputs.length + 1);
 
-		const singleFileMessages = await app({
-			...defaultSettings,
-			output: [outputs[0]],
-		});
+		const singleFileMessages = await app(
+			settingsWith({
+				output: [outputs[0]],
+			})
+		);
 
-		const multipleFileMessages = await app({
-			...defaultSettings,
-			output: outputs,
-		});
+		const multipleFileMessages = await app(
+			settingsWith({
+				output: outputs,
+			})
+		);
 
 		expect(singleFileMessages).toMatch(
 			new RegExp(`Wrote \\d+B to ${outputs[0]}`)
