@@ -11,7 +11,7 @@ jobs:
       # Restore any cached node_modules from the last
       # build, if package.json has the same checksum.
       - restore_cache:
-          key: dependencies-{{ checksum "package.json" }}'
+          key: dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
 
       # Install dependencies.
       - run:
@@ -20,7 +20,7 @@ jobs:
 
       # Save the content of node_modules to cache for the next build.
       - save_cache:
-          key: dependencies-{{ checksum "package.json" }}
+          key: dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
           paths:
             - node_modules
 
