@@ -1,5 +1,8 @@
-const fs = require('fs-extra');
 const { app } = require('../src/app');
+
+jest.mock('fs-extra');
+
+const fs = require('fs-extra');
 
 const yaml = `
 ---
@@ -12,15 +15,18 @@ spacing:
 
 describe('app', () => {
 	const defaultSettings = {
-		input: '.test-data/tokens.yaml',
-		output: ['.test-data/output/tokens.css'],
-		cwd: '.',
+		input: 'mock/tokens.yaml',
+		output: ['mock/output/tokens.css'],
+		cwd: '/root',
 	};
 
 	const settingsWith = settings => Object.assign({}, defaultSettings, settings);
 
-	beforeEach(() => fs.outputFile('./.test-data/tokens.yaml', yaml));
-	afterEach(() => fs.remove('./.test-data'));
+	beforeEach(() => {
+		fs.__setMockFilesystem({
+			'/root/mock/tokens.yaml': yaml,
+		});
+	});
 
 	test('throws with no settings', async () => {
 		await expect(app()).rejects.toThrow('Input file not specified.');
@@ -45,41 +51,42 @@ describe('app', () => {
 
 	test('throws with invalid format', async () => {
 		const settings = settingsWith({
-			output: ['.test-data/output/tokens.fail'],
+			output: ['mock/output/tokens.fail'],
 		});
 
 		await expect(app(settings)).rejects.toThrow(
-			'".test-data/output/tokens.fail" not a supported file extension.'
+			'"mock/output/tokens.fail" not a supported file extension.'
 		);
 	});
 
 	test('writes single file successfully', async () => {
 		await app(defaultSettings);
 
-		const exists = await fs.exists(defaultSettings.output[0]);
+		const filesystem = fs.__getMockFilesystem();
+		const files = Object.keys(filesystem);
 
-		expect(exists).toBe(true);
+		expect(files).toContain('/root/mock/output/tokens.css');
 	});
 
 	test('writes multiple files successfully', async () => {
 		const settings = settingsWith({
-			output: ['.test-data/output/tokens.css', '.test-data/output/tokens.scss'],
+			output: ['mock/output/tokens.css', 'mock/output/tokens.scss'],
 		});
 
 		await app(settings);
 
-		const wroteFirstFile = await fs.exists(settings.output[0]);
-		expect(wroteFirstFile).toBe(true);
+		const filesystem = fs.__getMockFilesystem();
+		const files = Object.keys(filesystem);
 
-		const wroteSecondFile = await fs.exists(settings.output[1]);
-		expect(wroteSecondFile).toBe(true);
+		expect(files).toContain('/root/mock/output/tokens.css');
+		expect(files).toContain('/root/mock/output/tokens.scss');
 	});
 
 	test('gives back the correct messages', async () => {
 		const outputs = [
-			'.test-data/output/tokens.css',
-			'.test-data/output/tokens.json',
-			'.test-data/output/tokens.scss',
+			'mock/output/tokens.css',
+			'mock/output/tokens.json',
+			'mock/output/tokens.scss',
 		];
 
 		expect.assertions(outputs.length + 1);
