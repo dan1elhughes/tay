@@ -36,6 +36,11 @@ jobs:
           name: Linting
           command: npm run lint -- --format junit -o test-results/eslint/results.xml
 
+      # Final sanity check that the project runs
+      - run:
+          name: Smoke test
+          command: node index.js -i tests/tokens.yaml -o .circleci/output.json -o .circleci/output.css
+
       # Store test and lint results
       - store_test_results:
           path: test-results

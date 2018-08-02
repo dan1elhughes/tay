@@ -1,0 +1,23 @@
+{
+	"color": {
+		"background": {
+			"fill": "grey",
+			"tile": "white"
+		},
+		"text": {
+			"strong": "white",
+			"dim": "rgba(255, 255, 255, 0.5)"
+		}
+	},
+	"spacing": {
+		"large": "30px",
+		"medium": "20px",
+		"small": "10px"
+	},
+	"radius": {
+		"large": "15px",
+		"medium": "10px",
+		"small": "5px"
+	},
+	"font": "'Open Sans', Arial, sans-serif"
+}

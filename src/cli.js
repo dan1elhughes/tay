@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
-const program = require('commander');
-const chokidar = require('chokidar');
 const { app, formats } = require('./app');
 
 const { collect } = require('./cli/utils');
 
-module.exports = async () => {
+const commander = require('commander');
+
+module.exports.parse = (argv, program = new commander.Command()) =>
 	program
 		.version(require('../package.json').version, '-v, --version')
 		.option('-i, --input <inputFile>', 'Input YAML file')
@@ -16,16 +16,7 @@ module.exports = async () => {
 			collect
 		)
 		.option('-w, --watch', 'Watch input for changes')
-		.parse(process.argv);
+		.parse(argv);
 
-	const { input, output, watch } = program;
-	const cwd = process.cwd();
-
-	if (watch) {
-		chokidar.watch(input).on('change', () => {
-			app({ input, output, cwd });
-		});
-	}
-
-	return app({ input, output, cwd });
-};
+module.exports.run = ({ input, output }) =>
+	app({ input, output, cwd: process.cwd() });
