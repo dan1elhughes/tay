@@ -1,13 +1,11 @@
-/* eslint-disable no-console */
-
 const { app, formats } = require('./app');
 
 const { collect } = require('./cli/utils');
 
-const commander = require('commander');
+const { Command } = require('commander');
 
-module.exports.parse = (argv, program = new commander.Command()) =>
-	program
+module.exports.parse = argv =>
+	new Command()
 		.version(require('../package.json').version, '-v, --version')
 		.option('-i, --input <inputFile>', 'Input YAML file')
 		.option(
@@ -18,5 +16,4 @@ module.exports.parse = (argv, program = new commander.Command()) =>
 		.option('-w, --watch', 'Watch input for changes')
 		.parse(argv);
 
-module.exports.run = ({ input, output, cwd = process.cwd() }) =>
-	app({ input, output, cwd });
+module.exports.run = app;

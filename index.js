@@ -10,6 +10,7 @@ const withOutput = buildInProgress =>
 		.catch(console.error.bind(console));
 
 const settings = cli.parse(process.argv);
+settings.cwd = process.cwd();
 
 withOutput(cli.run(settings));
 
