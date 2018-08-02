@@ -5,9 +5,10 @@ const chokidar = require('chokidar');
 const cli = require('./src/cli');
 
 const withOutput = buildInProgress =>
-	buildInProgress
-		.then(console.log.bind(console))
-		.catch(console.error.bind(console));
+	buildInProgress.then(console.log.bind(console)).catch(e => {
+		console.error(e);
+		process.exit(1);
+	});
 
 const settings = cli.parse(process.argv);
 settings.cwd = process.cwd();
