@@ -5,7 +5,6 @@ jobs:
       - image: circleci/node:10
 
     steps:
-      # Checkout the build from Git.
       - checkout
 
       # Restore any cached node_modules from the last
@@ -13,7 +12,6 @@ jobs:
       - restore_cache:
           key: dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
 
-      # Install dependencies.
       - run:
           name: Install dependencies
           command: npm install --silent
@@ -24,24 +22,24 @@ jobs:
           paths:
             - node_modules
 
-      # Run the tests configured in package.json.
       - run:
-          command: npm test -- --ci --reporters=jest-junit --runInBand --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+          name: Test suite
+          command: npm test -- --ci --reporters=jest-junit --runInBand --coverage
           environment:
             JEST_JUNIT_OUTPUT: test-results/jest/results.xml
-            COVERALLS_PARALLEL: true
 
-      # Run linting.
       - run:
           name: Linting
           command: npm run lint -- --format junit -o test-results/eslint/results.xml
 
-      # Final sanity check that the project runs
       - run:
-          name: Smoke test
+          name: CLI smoke test
           command: node index.js -i tests/tokens.yaml -o .circleci/output.json -o .circleci/output.css
 
-      # Store test and lint results
+      - run:
+          name: Upload code coverage
+          command: bash <(curl -s https://codecov.io/bash) -f ./coverage/lcov.info
+
       - store_test_results:
           path: test-results
 
