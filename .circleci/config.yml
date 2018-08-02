@@ -34,7 +34,7 @@ jobs:
 
       - run:
           name: CLI smoke test
-          command: node index.js -i tests/tokens.yaml -o .circleci/output.json -o .circleci/output.css
+          command: node index.js -i tests/.test-data/tokens.yaml -o .circleci/output.json -o .circleci/output.css
 
       - run:
           name: Upload code coverage
