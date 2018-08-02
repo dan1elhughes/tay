@@ -103,9 +103,7 @@ export const radiusSmall = '0.125rem';
 
 ## Running the tests
 
-### Unit
-
-Unit tests are built using Jest for each output formatter.
+This project aims for 100% test coverage, and is [tested on CI](https://circleci.com/gh/dan1elhughes/tay) with every version of Node >7.
 
 ```
 $ npm test
