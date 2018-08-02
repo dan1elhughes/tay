@@ -18,5 +18,5 @@ module.exports.parse = (argv, program = new commander.Command()) =>
 		.option('-w, --watch', 'Watch input for changes')
 		.parse(argv);
 
-module.exports.run = ({ input, output }) =>
-	app({ input, output, cwd: process.cwd() });
+module.exports.run = ({ input, output, cwd = process.cwd() }) =>
+	app({ input, output, cwd });
