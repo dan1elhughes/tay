@@ -1,5 +1,4 @@
 const { parse, run } = require('../src/cli');
-const commander = require('commander');
 
 jest.mock('fs-extra');
 const fs = require('fs-extra');
@@ -16,14 +15,8 @@ spacing:
 const args = (...opts) => ['node', '/cwd', ...opts];
 
 describe('parse', () => {
-	let instance;
-
-	beforeEach(() => {
-		instance = new commander.Command();
-	});
-
 	test('Fails with no options', async () => {
-		const { input, output, watch } = parse(args(), instance);
+		const { input, output, watch } = parse(args());
 		expect(input).toBeUndefined();
 		expect(output).toBeUndefined();
 		expect(watch).toBeUndefined();
@@ -31,8 +24,7 @@ describe('parse', () => {
 
 	test('Reads options from args', async () => {
 		const { input, output, watch } = parse(
-			args('--input', 'inputYaml', '--output', 'outputFile', '--watch'),
-			instance
+			args('--input', 'inputYaml', '--output', 'outputFile', '--watch')
 		);
 		expect(input).toBe('inputYaml');
 		expect(output).toEqual(['outputFile']);
