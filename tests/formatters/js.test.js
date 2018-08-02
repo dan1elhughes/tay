@@ -1,5 +1,5 @@
 const format = require('../../src/formatters/formatter-js');
-const tokens = require('../tokens.json');
+const tokens = require('../.test-data/tokens.json');
 
 const expected = `
 export const colorBackgroundFill = "grey";

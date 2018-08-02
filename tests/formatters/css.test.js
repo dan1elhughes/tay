@@ -1,5 +1,5 @@
 const format = require('../../src/formatters/formatter-css');
-const tokens = require('../tokens.json');
+const tokens = require('../.test-data/tokens.json');
 
 const expected = `
 :root {
