@@ -4,7 +4,7 @@ const yaml = require('js-yaml');
 const path = require('path');
 const fs = require('fs-extra');
 
-const formats = ['css', 'scss', 'js', 'flat.json', 'json'];
+const formats = ['scss', 'css', 'js', 'flat.json', 'json'];
 module.exports.formats = formats;
 
 const getMatchingFormat = filename =>
