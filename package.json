@@ -1,6 +1,6 @@
 {
 	"name": "tay",
-	"version": "2.3.3",
+	"version": "2.3.4",
 	"description": "Design token builder",
 	"main": "dist/index.js",
 	"bin": {
