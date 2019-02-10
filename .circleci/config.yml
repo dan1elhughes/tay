@@ -2,7 +2,7 @@ version: 2
 jobs:
   latest: &template
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:latest
 
     steps:
       - checkout
@@ -43,6 +43,11 @@ jobs:
       - store_test_results:
           path: test-results
 
+  "node:11":
+    <<: *template
+    docker:
+      - image: circleci/node:11
+
   "node:10":
     <<: *template
     docker:
@@ -68,6 +73,7 @@ workflows:
   build_and_test:
     jobs:
       - "latest"
+      - "node:11"
       - "node:10"
       - "node:9"
       - "node:8"
