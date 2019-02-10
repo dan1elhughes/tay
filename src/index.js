@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 const chokidar = require('chokidar');
-const cli = require('./src/cli');
+const cli = require('./cli');
 
 const withOutput = buildInProgress =>
 	buildInProgress.then(console.log.bind(console)).catch(e => {
